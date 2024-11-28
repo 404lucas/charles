@@ -20,6 +20,13 @@ const rl = readline.createInterface({
     output: process.stdout,
 });
 
+const keyWordsForRemembering = [
+    'lembre-se disso',
+    'anota isso',
+    'quero que anote isso',
+    'anota aí',
+    'lembre-se'
+];
 
 //Criando um chat com o modelo, sem histórico
 const chat = model.startChat({
@@ -81,11 +88,12 @@ handleChat = async () => { //Nova função para chat, com pergunta e resposta do
     rl.question("Usuário: ", async (userInput) => {
         try {
             const result = await chat.sendMessage(userInput);
+            if (containsKeywords(userInput, keyWordsForRemembering)) { console.log("Vou me lembrar disso."); }
             console.log(`Charles: ${result.response.text()}`);
 
             handleChat();
         } catch (err) {
-            console
+            console.log("Erro: " + err);
         }
     });
 
@@ -94,3 +102,13 @@ app.listen(3000, () => {
     console.log(`Chat iniciado`);
     handleChat();
 });
+
+function containsKeywords(text, keywords) {
+    text = text.toLowerCase(); // Torna a busca case-insensitive
+    for (const keyword of keywords) {
+        if (text.includes(keyword.toLowerCase())) {
+            return true;
+        }
+    }
+    return false;
+}
