@@ -6,8 +6,9 @@ const { customsearch } = require('@googleapis/customsearch');
 
 const date = Date().toLocaleString();
 const app = express(); //Instanciando express
-const API_KEY = "AIzaSyCC4QcO-okFdcecWZBeKiQejBOz83K6T2M"; //Definindo chave de API
-const AI = new GoogleGenerativeAI(API_KEY); //Instanciando Google AI
+const CS_API_KEY = "AIzaSyBwQ6vP0zlydi_0bqJ-BuzzriGyQHEG4a8";
+const GEMINI_API_KEY = "AIzaSyCC4QcO-okFdcecWZBeKiQejBOz83K6T2M"; //Definindo chave de API
+const AI = new GoogleGenerativeAI(GEMINI_API_KEY); //Instanciando Google AI
 const memory = require("./memory.json");
 const model = AI.getGenerativeModel({
   model: "gemini-1.5-flash",
